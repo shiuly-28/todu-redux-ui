@@ -3,9 +3,10 @@ import {useDispatch} from 'react-redux';
 import {useRef, useState} from 'react';
 import {addTodo, setIsAddingTodo} from '../store/todoSlice.js';
 
-export const TodoForm = ({placeholder, Onsubmit, Oncancel}) => {
+export const TodoForm = ({placeholder, Onsubmit, Oncancel,initialValue}) => {
   const dispatch = useDispatch()
-  const [text, setText] = useState('')
+    const [text, setText] = useState(initialValue)
+
   const inputRef = useRef(null)
 
   const handleSubmit = e => {

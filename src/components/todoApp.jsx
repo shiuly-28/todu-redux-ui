@@ -27,15 +27,15 @@ export const TodoApp = () => {
          <h1 className='text-4xl font-bold text-gray-800 mb-2'>TodoBux</h1>
          <p>Organize your life, one task at a time</p>
        </div>
-       {
-         stats.total > 0 && (
+       {stats.total > 0 && (
            <div className='bg-white/90 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-gray-300 shadow-lg'>
              <div className='flex items-center justify-between mb-4'>
                <h2 className='text-lg font-semibold text-gray-800'>Progress Overview</h2>
                <div className='text-2xl font-bold text-green-600'>{stats.completionPercentage}%</div>
              </div>
              <div className='w-full bg-gray-300 rounded-full h-3 mb-4'>
-               <div className='bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500 ease-out'>
+               <div className='bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500 ease-out'
+                    style={{ width: `${stats.completionPercentage}%` }}>
                </div>
              </div>
              <div className='grid grid-cols-3 gap-4 text-center'>
@@ -82,7 +82,7 @@ export const TodoApp = () => {
                )
              }
            </div>
-           <TodoFilter onFilter={handleFilter} stats={stats} filter={filter}/>
+           <TodoFilter  stats={stats} filter={filter} OnFilter={handleFilter}/>
 
          </div>
            {
@@ -118,7 +118,11 @@ export const TodoApp = () => {
                  </div>
              ) : (
                <div className='divide-y divide-gray-300'>
-                   <TodoItem />
+                   {
+                       filteredTodos.map((filteredTodo, index) =>(
+                           <TodoItem key={filteredTodo.id} filterTodo={filteredTodo} index={index} />
+                       ))
+                   }
                </div>
              )
            }
