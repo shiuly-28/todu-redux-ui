@@ -1,6 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit';
+
+const loadTodos = () =>{
+    try {
+        const saved = localStorage.getItem('todos')
+        return saved ? JSON.parse(saved) : []
+    }
+    catch {
+       return []
+    }
+}
+const saveTodos = (todo) =>{
+    try {
+        localStorage.setItem('todos', JSON.stringify(todo))
+    }
+    catch (error){
+        console.error(error)
+    }
+}
 const initialState = {
-  items: [],
+  items: loadTodos(),
   filter: 'all',
   isAddingTodo: false
 }
@@ -18,6 +36,7 @@ const todoSlice = createSlice({
         completed: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
+
       }
       state.items.unshift(newTodo)
       state.isAddingTodo = false
@@ -25,6 +44,7 @@ const todoSlice = createSlice({
       setFiler: (state, action) => {
         state.filter = action.payload
       },
+
       toggleTodo: (state, action) =>{
         const todo = state.items.find(filterTodo => filterTodo.id === action.payload)
           if(todo){
@@ -42,9 +62,23 @@ const todoSlice = createSlice({
                   updatedAt: new Date().toISOString()
               })
           }
-      }
+      },
+      markAllComplete: state =>{
+        const hasInComplete = state.items(filterTodo => !filterTodo.completed)
+          state.items.forEach(filterTodo => {
+              filterTodo.completed = hasInComplete
+          })
+          saveTodos(state.items)
 
+      },
+      clearItems: state => {
+        state.items = state.items(filterTodo => !filterTodo.completed)
+      }
   }
+
 })
-export const {setIsAddingTodo, addTodo, setFiler, toggleTodo, deleteTodo, updateTodo} = todoSlice.actions
+export const {setIsAddingTodo, addTodo, setFiler,
+    toggleTodo, deleteTodo, updateTodo,
+    markAllComplete
+} = todoSlice.actions
 export default todoSlice.reducer
