@@ -22,7 +22,6 @@ export const TodoForm = ({placeholder, Onsubmit, Oncancel,initialValue}) => {
       setText('')
     }
   }
-
   const handleCancel = () => {
     if (Oncancel) {
       Oncancel()

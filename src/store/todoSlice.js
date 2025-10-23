@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-
 const loadTodos = () =>{
     try {
         const saved = localStorage.getItem('todos')
@@ -36,7 +35,6 @@ const todoSlice = createSlice({
         completed: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
-
       }
       state.items.unshift(newTodo)
       state.isAddingTodo = false
@@ -44,7 +42,6 @@ const todoSlice = createSlice({
       setFiler: (state, action) => {
         state.filter = action.payload
       },
-
       toggleTodo: (state, action) =>{
         const todo = state.items.find(filterTodo => filterTodo.id === action.payload)
           if(todo){
@@ -56,7 +53,7 @@ const todoSlice = createSlice({
       },
       updateTodo:(state, action) =>{
         const {id, updates} = action.payload
-          const todo = state.items.find(filteTodo => filteTodo.id === id)
+          const todo = state.items.find(filterTodo => filterTodo.id === id)
           if(todo){
               Object.assign(todo, updates, {
                   updatedAt: new Date().toISOString()
@@ -75,10 +72,10 @@ const todoSlice = createSlice({
         state.items = state.items(filterTodo => !filterTodo.completed)
       }
   }
-
 })
 export const {setIsAddingTodo, addTodo, setFiler,
     toggleTodo, deleteTodo, updateTodo,
-    markAllComplete
+    markAllComplete,
+    clearItems
 } = todoSlice.actions
 export default todoSlice.reducer

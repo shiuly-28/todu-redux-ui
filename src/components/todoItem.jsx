@@ -4,7 +4,6 @@ import {toggleTodo, updateTodo} from "../store/todoSlice.js";
 import {useState} from "react";
 import {TodoForm} from "./todoForm.jsx";
 
-
 export const TodoItem = ({filterTodo, index}) => {
     const dispatch = useDispatch();
     const [isDeleting , setIsDeleting] = useState(false);
@@ -27,7 +26,6 @@ export const TodoItem = ({filterTodo, index}) => {
             dispatch(toggleTodo(filterTodo.id))
         }, 400)
     }
-
     const handleUpdate = (text) => {
         dispatch(updateTodo({
             id: filterTodo.id,
@@ -37,7 +35,6 @@ export const TodoItem = ({filterTodo, index}) => {
             }))
         setIsEditing(false)
     }
-
     if(isEditing){
         return (
             <div className="p-4 bg-gray-100">
@@ -50,8 +47,7 @@ export const TodoItem = ({filterTodo, index}) => {
             </div>
         )
     }
-
-  return (
+    return (
       <div className={`group p-4 hover:bg-gray-100 transition-all duration-200 ${isDeleting ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'}
       ${filterTodo.completed ? 'opacity-75' : ""}`} style={{
           animationDelay: `${index * 50}ms,`,

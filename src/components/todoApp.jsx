@@ -4,7 +4,7 @@ import {TodoForm} from './todoForm.jsx';
 import {TodoItem} from './todoItem.jsx';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectFilter, selectFilteredTodos, selectIsAddingTodo, selectTodos, selectTodosStats} from '../store/selector.js';
-import {markAllComplete, setFiler, setIsAddingTodo} from '../store/todoSlice.js';
+import {clearItems, markAllComplete, setFiler, setIsAddingTodo} from '../store/todoSlice.js';
 
 export const TodoApp = () => {
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ export const TodoApp = () => {
       dispatch(markAllComplete())
   }
   const handleClear = () =>{
-      dispatch(clearItems)
+      dispatch(clearItems())
   }
   return (
     <div className='min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 py-8 px-4'>
@@ -64,7 +64,8 @@ export const TodoApp = () => {
        <div className='bg-white/90 backdrop-blur-sm rounded-b-2xl border border-gray-300 shadow-lg overflow-hidden'>
          <div className='p-6 border-b border-gray-300'>
            <div className='flex items-center justify-between mb-4'>
-             <button onClick={handleAddTodo} className='flex items-center gap-3 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer'>
+             <button onClick={handleAddTodo} className='flex items-center gap-3 bg-gray-800 hover:bg-gray-700
+             text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium cursor-pointer'>
                <Plus size={20} /> Add todo
              </button>
              {
@@ -72,7 +73,8 @@ export const TodoApp = () => {
                  <div className='flex items-center gap-2'>
                    {
                      stats.completed > 0 && (
-                       <button onClick={handleClear} className='flex items-center gap-3 text-red-600 hover:text-red-700 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors duration-200 text-sm'>
+                       <button onClick={handleClear} className='flex items-center gap-3 text-red-600
+                       hover:text-red-700 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors duration-200 text-sm'>
                          <Trash2 size={20} /> Clear Completed
                        </button>
                      )
